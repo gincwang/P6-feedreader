@@ -1,3 +1,9 @@
+## Notes on the project
+In addition to the 14 required test specs, I provided 2 more specs:
+* check each url in allFeeds objects matches with "http://" as a web link --> this currently passes
+* check each RSS feed will be hidden after they have been clicked --> this currently fails, needs to add function in app.js
+  * I assume that each news feed link (a tag) will get a class of "visited" once they're clicked, then I simulate a click on the first link and expect the $(."visted") array length will differ befor and after the click.
+
 # Project Overview
 
 In this project you are given a web-based application that reads RSS feeds. The original developer of this application clearly saw the value in testing, they've already included [Jasmine](http://jasmine.github.io/) and even started writing their first test suite! Unfortunately, they decided to move on to start their own company and we're now left with an application with an incomplete test suite. That's where you come in.
