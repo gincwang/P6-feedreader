@@ -24,20 +24,20 @@ $(function() {
              allFeeds.forEach(function(feed){
                  expect(feed.url).toBeDefined();
                  expect(feed.url.length).toBeGreaterThan(0);
-             })
+             });
          });
 
          it('have url begin with "http://"', function(){
              allFeeds.forEach(function(feed){
-                 expect(feed.url).toMatch(/http:\/\//);
-             })
-         })
+                 expect(feed.url).toMatch(/^https?:\/\//);
+             });
+         });
 
          it('have name defined', function(){
              allFeeds.forEach(function(feed){
                  expect(feed.name).toBeDefined();
                  expect(feed.name.length).toBeGreaterThan(0);
-             })
+             });
          });
     });
 
@@ -69,10 +69,9 @@ $(function() {
             loadFeed(1,done);
         });
 
-         it('has at least 1 entry after loadFeed runs', function(done){
+         it('has at least 1 entry after loadFeed runs', function(){
              var feed = ('.feed');
              expect(feed.length).toBeGreaterThan(1);
-             done();
          });
      });
 
@@ -80,25 +79,26 @@ $(function() {
         var oldContent;
 
         beforeEach(function(done){
-            oldContent = $('.feed').html();
+            $('.feed').empty();
             //loads feed "2" so it's different from previous feed
-            loadFeed(2,done);
+            loadFeed(2,function(){
+                oldContent = $('.feed').html();
+                loadFeed(0, done);
+            });
         });
 
-         it('changes content when loaded', function(done){
+         it('changes content when loaded', function(){
              var newContent = $('.feed').html();
              expect(oldContent).not.toBe(newContent);
-             done();
          });
     });
 
     describe('News Feed Behavior', function(){
         it('hides visited news links', function(){
             var visitCount = $('.visited').length;
-            //var firstArticle = $('.feed').first().click();
             $('.entry-link:first').click();
             var newVisitCount = $('.visited').length;
             expect(visitCount).not.toEqual(newVisitCount);
         });
-    })
+    });
 }());
